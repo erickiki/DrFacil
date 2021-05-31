@@ -1,17 +1,15 @@
 import React from 'react';
-import { View, Text,Button } from 'react-native';
+import { useState } from 'react';
+import { View, Text,Button, image, SafeAreaView, ActivityIndicator } from 'react-native';
 
 
-function ExploreScreen({navigation}) {
-    return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Buscar un Doctor</Text>
-        <Button
-              title="ir a pantalla principal"
-              onPress={() => navigation.navigate("Home")}
-          />
-      </View>
-      
+function ExploreScreen({route,navigation}) {
+  
+  return (
+    <View style={{flex:1,alignItems:'center', justifyContent:'center'}}>
+      <Text>pantalla de mapas</Text>
+
+    </View>
     );
   }
 export default ExploreScreen;

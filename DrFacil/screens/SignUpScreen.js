@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
 import { 
     View, 
     Text, 
@@ -13,10 +14,14 @@ import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
-
+import axios from 'axios';
+import {AuthContext} from '../components/context';
 
 const SignInScreen= ({navigation}) => {
 
+    const [Email, setEmail] = useState('')
+    const [Username, setUsername] = useState('')
+    const [Password, setPassword] = useState('')
     const [data, setData] =React.useState({
         email:'',
         password:'',
@@ -69,6 +74,15 @@ const SignInScreen= ({navigation}) => {
         });
     }
 
+    const addUser = async() => {
+        const obj = {Email,Password,Username}
+        const respuesta = await axios.post('http://192.168.0.101:5000/api/usuarios/', obj)
+        alert(respuesta.data.msg)
+        setEmail('')
+        setPassword('')
+        setUsername('')
+
+      }
 
     return(
         <View style={styles.container}>
@@ -85,10 +99,8 @@ const SignInScreen= ({navigation}) => {
                 style={styles.footer}
             >
 
-<View style={styles.button}>
-                    
-                    
-
+                <View style={styles.button}>
+                 
                     <TouchableOpacity
                         
                         style={[styles.signIn,{
@@ -121,6 +133,23 @@ const SignInScreen= ({navigation}) => {
 
                 </View>
 
+                <Text style={styles.text_footer}>Nombre</Text>
+                <View style={styles.action}>
+                    <FontAwesome
+                        name="user-o"
+                        color="#05375a"
+                        size={20}
+                    />
+                    <TextInput
+                        placeholder="Nombre Completo"
+                        style={styles.textInput}
+                        autoCapitalize="none"
+                        onChangeText={e=>setUsername(e)}
+                        value={Username}
+                    />
+                   
+                </View>
+                
                 <Text style={styles.text_footer}>Email</Text>
                 <View style={styles.action}>
                     <FontAwesome
@@ -132,21 +161,10 @@ const SignInScreen= ({navigation}) => {
                         placeholder="Tu Email"
                         style={styles.textInput}
                         autoCapitalize="none"
-                        onChangeText={(val)=>textInputChange(val)}
+                        onChangeText={e=>setEmail(e)}
+                        value={Email}
                     />
-                    {data.check_textInputChange?
-                    <Animatable.View
-                        animation='bounceIn'
-                    >
-                        <Feather 
-                            name="check-circle"
-                            color="green"
-                            size={20}
-                        />
-
-                    </Animatable.View>
-                    
-                    :null}
+                   
                 </View>
                 
                 <Text style={[styles.text_footer,{marginTop:25}]}>Contraseña</Text>
@@ -161,7 +179,8 @@ const SignInScreen= ({navigation}) => {
                         secureTextEntry={data.secureTextEntry ? true : false}
                         style={styles.textInput}
                         autoCapitalize="none"
-                        onChangeText={(val)=>handlePasswordChange(val)}
+                        onChangeText={e=>setPassword(e)}
+                        value={Password}
                     />
                     <TouchableOpacity
                         onPress={updateSecureTextEntry}
@@ -220,7 +239,9 @@ const SignInScreen= ({navigation}) => {
                         colors={['#08d4c4','#01ab9d']}
                         style={styles.signIn1}
                     >
-                        <Text style={[styles.textSign , {color:'#fff'}]}>Registrarse</Text>
+                    <TouchableOpacity onPress={addUser} >
+                        <Text style={[styles.textSign , {color:'#fff'}]} >Registrarse</Text>
+                    </TouchableOpacity>
                     </LinearGradient>
                     
                 </View>
@@ -243,7 +264,7 @@ const styles = StyleSheet.create({
         paddingBottom: 50
     },
     footer: {
-        flex: 3,
+        flex: 4,
         backgroundColor: '#fff',
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,

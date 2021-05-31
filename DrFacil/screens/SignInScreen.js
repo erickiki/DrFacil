@@ -20,9 +20,9 @@ import Feather from 'react-native-vector-icons/Feather';
 import {AuthContext} from '../components/context';
 
 //import Users from '../model/Users';
-import { black, lightBlue100 } from 'react-native-paper/lib/typescript/styles/colors';
+//import { black, lightBlue100 } from 'react-native-paper/lib/typescript/styles/colors';
 
-const DrFacilURL = "http://192.168.0.103:5000/api/users/index.php";
+const DrFacilURL = "http://192.168.0.107:5000/api/usuarios/";
 
 const SignInScreen= ({navigation}) => {
 
@@ -94,7 +94,7 @@ const SignInScreen= ({navigation}) => {
 
     const loginHandle = (userName, password) =>{
         const foundUser = Users.filter(item =>{
-            return userName ==item.nombre && password == item.password
+            return userName ==item.email && password == item.password
         });
         if (data.username.length == 0 || data.password.length == 0){
             Alert.alert('Entrada Incorrecta','Los campos no pueden estar vacios',[ 
@@ -168,7 +168,7 @@ const SignInScreen= ({navigation}) => {
 
                 </View>
 
-                <Text style={styles.text_footer}>Nombre de Usuario</Text>
+                <Text style={styles.text_footer}>Email</Text>
                 <View style={styles.action}>
                     <FontAwesome
                         name="user-o"
@@ -176,7 +176,7 @@ const SignInScreen= ({navigation}) => {
                         size={20}
                     />
                     <TextInput
-                        placeholder="Nombre de Usuario"
+                        placeholder="Email"
                         style={styles.textInput}
                         autoCapitalize="none"
                         onChangeText={(val)=>textInputChange(val)}

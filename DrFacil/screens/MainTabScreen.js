@@ -10,8 +10,12 @@ import DetailsScreen from './DetailsScreen';
 import ProfileScreen from './ProfileScreen';
 import ExploreScreen from './ExploreScreen';
 
+
 const HomeStack = createStackNavigator();
 const DetailsStack = createStackNavigator();
+const ProfileStack = createStackNavigator();
+
+
 const Tab = createMaterialBottomTabNavigator();
 
 const MainTabScreen = () => (
@@ -35,21 +39,21 @@ const MainTabScreen = () => (
       name="Notifications"
       component={DetailsStackScreen}
       options={{
-        tabBarLabel: 'notificaciones',
+        tabBarLabel: 'Comprar',
         tabBarColor:'#009387',
         tabBarIcon: ({ color }) => (
-          <Icon name="ios-notifications" color={color} size={26} />
+          <Icon name="cart" color={color} size={26} />
         ),
       }}
     />
     <Tab.Screen
       name="Profile"
-      component={ProfileScreen}
+      component={ProfileStackScreen}
       options={{
-        tabBarLabel: 'Datos Personales',
+        tabBarLabel: 'Doctores',
         tabBarColor:'#009387',
         tabBarIcon: ({ color }) => (
-          <Icon name="ios-person" color={color} size={26} />
+          <Icon name="medkit" color={color} size={26} />
         ),
       }}
     />
@@ -97,7 +101,7 @@ const DetailsStackScreen =({navigation})=>(
       }
     }}>
       <DetailsStack.Screen name='Details' component={DetailsScreen} options={{
-            title:'Notificaciones',
+            title:'Comprar Saldo',
             headerLeft:()=>(
               <Icon.Button name='ios-menu' size={25} 
               backgroundColor='#009387' onPress={()=>{navigation.openDrawer()}}>
@@ -106,5 +110,30 @@ const DetailsStackScreen =({navigation})=>(
 
           }}/>
     </DetailsStack.Navigator>
+
+);
+
+const ProfileStackScreen =({navigation})=>(
+  <ProfileStack.Navigator screenOptions={{
+    headerStyle:{backgroundColor:'#009387'},
+    headerTintColor:'#fff',
+    headerTitleStyle:{fontWeight:'bold'
+    }
+  }}>
+    <ProfileStack.Screen name='Profile' component={ProfileScreen} options={{
+          title:'Doctores',
+          headerLeft:()=>(
+            <Icon.Button name='ios-menu' size={25} 
+            backgroundColor='#009387' onPress={()=>{navigation.openDrawer()}}>
+            </Icon.Button>
+            ),
+          headerRight:()=>(
+              <Icon.Button name='search' size={25} 
+              backgroundColor='#009387' onPress={()=>{navigation.openDrawer()}}>
+              </Icon.Button>
+              ) 
+
+        }}/>
+  </ProfileStack.Navigator>
 
 );

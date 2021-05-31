@@ -72,14 +72,15 @@ function App() {
     signIn: async (foundUser)=>{
       
       const userToken=String(foundUser[0].userToken);
-      const userName = foundUser[0].username;
+      const userName = foundUser[0].email;
         try{
           await AsyncStorage.setItem('userToken', userToken);
         } catch(e){
           console.log(e);
         }
-      
       dispatch({type:'LOGIN', id: userName, token:userToken});
+      console.log({userToken});
+      console.log({userName});
     },
     signOut: async() => {
       try{
